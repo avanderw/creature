@@ -1,5 +1,11 @@
 package net.avdw.creature;
 
-public class Leg {
+class Leg {
+    String side;
     Foot foot;
+
+    public Leg(String side, Foot foot) {
+        this.side = side;
+        this.foot = foot;
+    }
 }

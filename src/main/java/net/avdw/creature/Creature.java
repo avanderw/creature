@@ -1,5 +1,6 @@
 package net.avdw.creature;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 public class Creature {
@@ -10,7 +11,8 @@ public class Creature {
         this.body = body;
     }
 
+    @Override
     public String toString() {
-        return String.format("body={%s}", body);
+        return new Gson().toJson(this);
     }
 }

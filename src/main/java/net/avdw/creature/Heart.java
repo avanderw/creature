@@ -1,4 +1,10 @@
 package net.avdw.creature;
 
-public class Heart {
+class Heart {
+
+    String type;
+
+    public Heart(String type) {
+        this.type = type;
+    }
 }

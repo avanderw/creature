@@ -23,9 +23,4 @@ public class Body {
         this.skin = skin;
         this.heart = heart;
     }
-
-    public String toString() {
-        return String.format("skin={%s}, heart={%s}, heads={%s}, arms={%s}, wings={%s}, legs={%s}, tails=[%s}",
-                skin, heart, heads, arms, wings, legs, tails);
-    }
 }

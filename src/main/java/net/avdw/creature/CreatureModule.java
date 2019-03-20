@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 public class CreatureModule extends AbstractModule {
     @Override
     protected void configure() {
+        install(new BodyModule());
         install(new SkinModule());
         install(new WingModule());
     }
@@ -115,7 +116,7 @@ public class CreatureModule extends AbstractModule {
     EnumeratedDistribution<String> descriptionDistribution() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
-        descriptions.add(new Pair<>("The #{name} has a body #{body}", 1/denominator));
+        descriptions.add(new Pair<>("The #{name} has a #{body}", 1/denominator));
         return new EnumeratedDistribution<>(descriptions);
     }
 

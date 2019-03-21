@@ -8,8 +8,10 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+import javax.annotation.Generated;
 import javax.inject.Named;
 
+@Generated(value = "", date = "", comments = "")
 public class CreatureDescriber {
     private CreatureNamer creatureNamer;
     private EnumeratedDistribution<String> creatureDescriptions;

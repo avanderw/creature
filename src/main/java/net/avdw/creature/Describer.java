@@ -7,6 +7,7 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+@Deprecated
 public class Describer {
     final DescriptionContext descriptionContext;
 

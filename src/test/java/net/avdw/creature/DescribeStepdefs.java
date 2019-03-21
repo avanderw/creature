@@ -2,6 +2,9 @@ package net.avdw.creature;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import cucumber.api.java8.En;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.Level;
@@ -24,7 +27,7 @@ public class DescribeStepdefs implements En {
             creature = injector.getInstance(Creature.class);
         });
         When("^I describe the creature$", () -> {
-            description = injector.getInstance(CreatureDescriber.class).describe();
+            description = injector.getInstance(Describer.class).describe(injector.getInstance(Key.get(String.class, Names.named("creature-template"))));
         });
         Then("^there must be no template code$", () -> {
             assertThat(description, not(matchesPattern(".*<.*>.*")));

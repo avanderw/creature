@@ -2,6 +2,7 @@ package net.avdw.creature;
 
 import com.google.inject.Inject;
 
+@Deprecated
 public class DescriptionContext {
     final CreatureNamer creatureNamer;
     private BodyDescriber bodyDescriber;

@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.distribution.EnumeratedIntegerDistribution;
 import org.apache.commons.math3.util.Pair;
@@ -112,8 +113,13 @@ public class CreatureModule extends AbstractModule {
         return distribution.sample();
     }
 
-    @Provides @Singleton @Named("creature-descriptions")
-    EnumeratedDistribution<String> descriptionDistribution() {
+    @Provides @Named("creature-template")
+    String template(@Named("creature-templates") EnumeratedDistribution<String> templates) {
+        return templates.sample();
+    }
+
+    @Provides @Singleton @Named("creature-templates")
+    EnumeratedDistribution<String> templates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
         descriptions.add(new Pair<>("The #{name} has a #{body}", 1/denominator));

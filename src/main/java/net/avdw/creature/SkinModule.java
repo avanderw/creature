@@ -20,7 +20,7 @@ public class SkinModule extends AbstractModule {
     @Provides
     @Named("skin-description-template")
     String template(EnumeratedDistribution<Skin> templates) {
-        return templates.sample().type;
+        return String.format("skin{%s}",templates.sample().description);
     }
 
     @Provides

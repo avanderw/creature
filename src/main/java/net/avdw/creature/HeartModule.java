@@ -11,33 +11,25 @@ import org.apache.commons.math3.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BodyModule extends AbstractModule {
+public class HeartModule extends AbstractModule {
     @Override
     protected void configure() {
-        install(new HeadModule());
-        install(new HeartModule());
-        install(new SkinModule());
-        install(new ArmModule());
-        install(new LegModule());
-        install(new WingModule());
-        install(new TailModule());
-
-        bind(Describer.class).annotatedWith(Names.named("body")).to(BodyDescriber.class);
+        bind(Describer.class).annotatedWith(Names.named("heart")).to(HeartDescriber.class);
     }
 
     @Provides
-    @Named("body-description-template")
-    String template(@Named("body-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("heart-description-template")
+    String template(@Named("heart-description-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("body-description-templates")
+    @Named("heart-description-templates")
     EnumeratedDistribution<String> templates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
-        descriptions.add(new Pair<>("todo:classifier #{heart}#{skin}Some other text. #{legs}#{arms}#{heads}#{wings}#{tails}", 1/denominator));
+        descriptions.add(new Pair<>("a large green heart", 1/denominator));
         return new EnumeratedDistribution<>(descriptions);
     }
 }

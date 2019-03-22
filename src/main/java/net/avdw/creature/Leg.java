@@ -1,6 +1,9 @@
 package net.avdw.creature;
 
-class Leg {
+import net.avdw.creature.codegen.Describe;
+
+@Describe
+public class Leg {
     String side;
     Foot foot;
 

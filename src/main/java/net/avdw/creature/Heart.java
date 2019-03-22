@@ -1,6 +1,9 @@
 package net.avdw.creature;
 
-class Heart {
+import net.avdw.creature.codegen.Describe;
+
+@Describe
+public class Heart {
 
     String type;
 

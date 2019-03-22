@@ -3,6 +3,8 @@ package net.avdw.creature;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.util.Pair;
 
@@ -12,11 +14,18 @@ import java.util.List;
 public class SkinModule extends AbstractModule {
     @Override
     protected void configure() {
-
+        bind(Describer.class).annotatedWith(Names.named("skin")).to(SkinDescriber.class);
     }
 
-    @Provides @Singleton
-    EnumeratedDistribution<Skin> distribution() {
+    @Provides
+    @Named("skin-description-template")
+    String template(EnumeratedDistribution<Skin> templates) {
+        return templates.sample().type;
+    }
+
+    @Provides
+    @Singleton
+    EnumeratedDistribution<Skin> templates() {
         List<Pair<Skin, Double>> skins = new ArrayList<>();
         skins.add(new Pair<>(new Skin("Feathers", "resistant to water"), 1./21));
         skins.add(new Pair<>(new Skin("Tough", "normal appearance, but resistant to minor heat or damage"), 1./21));

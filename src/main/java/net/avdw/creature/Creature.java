@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import net.avdw.creature.codegen.Describe;
 
+@Describe
 public class Creature {
     @Describe
     Body body;

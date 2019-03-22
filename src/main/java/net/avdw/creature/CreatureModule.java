@@ -18,8 +18,8 @@ public class CreatureModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new BodyModule());
-        install(new SkinModule());
-        install(new WingModule());
+
+        bind(Describer.class).annotatedWith(Names.named("creature")).to(CreatureDescriber.class);
     }
 
     @Provides
@@ -113,16 +113,16 @@ public class CreatureModule extends AbstractModule {
         return distribution.sample();
     }
 
-    @Provides @Named("creature-template")
-    String template(@Named("creature-templates") EnumeratedDistribution<String> templates) {
+    @Provides @Named("creature-description-template")
+    String template(@Named("creature-description-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
-    @Provides @Singleton @Named("creature-templates")
+    @Provides @Singleton @Named("creature-description-templates")
     EnumeratedDistribution<String> templates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
-        descriptions.add(new Pair<>("The #{name} has a #{body}", 1/denominator));
+        descriptions.add(new Pair<>("The todo:name has a #{body}", 1/denominator));
         return new EnumeratedDistribution<>(descriptions);
     }
 

@@ -19,34 +19,34 @@ public class ArmModule extends AbstractModule {
     }
 
     @Provides
-    @Named("arms-description-template")
-    String armsTemplate(@Named("arms-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("arms-adjective-template")
+    String armsTemplate(@Named("arms-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("arms-description-templates")
+    @Named("arms-adjective-templates")
     EnumeratedDistribution<String> armsTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
-        descriptions.add(new Pair<>("arms description", 1/denominator));
+        descriptions.add(new Pair<>("arms adjective", 1/denominator));
         return new EnumeratedDistribution<>(descriptions);
     }
 
     @Provides
-    @Named("arm-description-template")
-    String armTemplate(@Named("arm-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("arm-adjective-template")
+    String armTemplate(@Named("arm-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("arm-description-templates")
+    @Named("arm-adjective-templates")
     EnumeratedDistribution<String> armTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
-        descriptions.add(new Pair<>("arm description", 1/denominator));
+        descriptions.add(new Pair<>("arm adjective", 1/denominator));
         return new EnumeratedDistribution<>(descriptions);
     }
 }

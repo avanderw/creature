@@ -26,14 +26,14 @@ public class BodyModule extends AbstractModule {
     }
 
     @Provides
-    @Named("body-description-template")
-    String template(@Named("body-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("body-adjective-template")
+    String template(@Named("body-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("body-description-templates")
+    @Named("body-adjective-templates")
     EnumeratedDistribution<String> templates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();

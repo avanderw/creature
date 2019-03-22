@@ -19,14 +19,14 @@ public class LegModule extends AbstractModule {
     }
 
     @Provides
-    @Named("legs-description-template")
-    String legsTemplate(@Named("legs-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("legs-adjective-template")
+    String legsTemplate(@Named("legs-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("legs-description-templates")
+    @Named("legs-adjective-templates")
     EnumeratedDistribution<String> legsTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
@@ -35,14 +35,14 @@ public class LegModule extends AbstractModule {
     }
 
     @Provides
-    @Named("leg-description-template")
-    String legTemplate(@Named("leg-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("leg-adjective-template")
+    String legTemplate(@Named("leg-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("leg-description-templates")
+    @Named("leg-adjective-templates")
     EnumeratedDistribution<String> legTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();

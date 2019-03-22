@@ -18,7 +18,12 @@ public class SkinModule extends AbstractModule {
     }
 
     @Provides
-    @Named("skin-description-template")
+    Skin skin(EnumeratedDistribution<Skin> distribution) {
+        return distribution.sample();
+    }
+
+    @Provides
+    @Named("skin-adjective-template")
     String template(EnumeratedDistribution<Skin> templates) {
         return String.format("skin{%s}",templates.sample().description);
     }
@@ -52,8 +57,4 @@ public class SkinModule extends AbstractModule {
         return new EnumeratedDistribution<>(skins);
     }
 
-    @Provides
-    Skin skin(EnumeratedDistribution<Skin> distribution) {
-        return distribution.sample();
-    }
 }

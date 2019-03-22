@@ -19,14 +19,14 @@ public class TailModule extends AbstractModule {
     }
 
     @Provides
-    @Named("tails-description-template")
-    String tailsTemplate(@Named("tails-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("tails-adjective-template")
+    String tailsTemplate(@Named("tails-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("tails-description-templates")
+    @Named("tails-adjective-templates")
     EnumeratedDistribution<String> tailsTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
@@ -35,14 +35,14 @@ public class TailModule extends AbstractModule {
     }
 
     @Provides
-    @Named("tail-description-template")
-    String tailTemplate(@Named("tail-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("tail-adjective-template")
+    String tailTemplate(@Named("tail-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("tail-description-templates")
+    @Named("tail-adjective-templates")
     EnumeratedDistribution<String> tailTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();

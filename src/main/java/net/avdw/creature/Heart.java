@@ -6,11 +6,11 @@ import net.avdw.creature.codegen.Describe;
 public class Heart {
 
     String type;
-    String description;
+    String adjective;
 
-    public Heart(String type, String description) {
+    public Heart(String type, String adjective) {
         this.type = type;
-        this.description = description;
+        this.adjective = adjective;
 
     }
 }

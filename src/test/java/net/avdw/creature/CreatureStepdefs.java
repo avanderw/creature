@@ -5,7 +5,6 @@ import com.google.inject.Injector;
 import cucumber.api.java8.En;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.Level;
-import org.pmw.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class CreatureStepdefs implements En {
             Heart heart = creatures.get(creatureIdx).body.heart;
             assertThat(heart, is(notNullValue()));
             assertThat(descriptions.get(descriptionIdx), is(notNullValue()));
-            assertThat(descriptions.get(descriptionIdx), containsString(heart.description));
+            assertThat(descriptions.get(descriptionIdx), containsString(heart.adjective));
         });
         Then("^description (\\d+) and description (\\d+) will be equal$", (Integer arg0, Integer arg1) -> {
             throw new UnsupportedOperationException();

@@ -19,14 +19,14 @@ public class HeadModule extends AbstractModule {
     }
 
     @Provides
-    @Named("heads-description-template")
-    String headsTemplate(@Named("heads-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("heads-adjective-template")
+    String headsTemplate(@Named("heads-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("heads-description-templates")
+    @Named("heads-adjective-templates")
     EnumeratedDistribution<String> headsTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
@@ -35,14 +35,14 @@ public class HeadModule extends AbstractModule {
     }
 
     @Provides
-    @Named("head-description-template")
-    String headTemplate(@Named("head-description-templates") EnumeratedDistribution<String> templates) {
+    @Named("head-adjective-template")
+    String headTemplate(@Named("head-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("head-description-templates")
+    @Named("head-adjective-templates")
     EnumeratedDistribution<String> headTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();

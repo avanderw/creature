@@ -103,12 +103,12 @@ public class CreatureModule extends AbstractModule {
 
 
 
-    @Provides @Named("creature-description-template")
-    String template(@Named("creature-description-templates") EnumeratedDistribution<String> templates) {
+    @Provides @Named("creature-adjective-template")
+    String template(@Named("creature-adjective-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
-    @Provides @Singleton @Named("creature-description-templates")
+    @Provides @Singleton @Named("creature-adjective-templates")
     EnumeratedDistribution<String> templates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
@@ -211,7 +211,7 @@ public class CreatureModule extends AbstractModule {
 //        [7] Roll an arm. Has an eye in center of palm and shoots 1d6 eye lasers, no save.
 //        [8] Flaming Pyre. Can breathe fire cone 2d6 damage. Stunned for a round after use.
 //        [9] King with tin crown. Commands 1d4 faceless, cowardly humanoid creatures w/ spears.
-//        [10] Tapestry covers face. Takes -1 damage from all spells. Face underneath defies description.
+//        [10] Tapestry covers face. Takes -1 damage from all spells. Face underneath defies adjective.
 //        [11] Big ugly pink pig. Snorts out huge gust of air; blinding dust 1 round and knocks away arrows.
 //        [12] Vampire Bat. Drain-Bite attack deals 1d6 damage and heals it for same amount.
 //

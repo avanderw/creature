@@ -32,4 +32,14 @@ public class HeartModule extends AbstractModule {
         descriptions.add(new Pair<>("a large green heart", 1/denominator));
         return new EnumeratedDistribution<>(descriptions);
     }
-}
+
+    @Provides
+    Heart heart() {
+        List<Pair<Heart, Double>> hearts = new ArrayList<>();
+        hearts.add(new Pair<>(new Heart("Bionic", "artificial"), 0.4));
+        hearts.add(new Pair<>(new Heart("Metallic", "metallic"), 0.1));
+        hearts.add(new Pair<>(new Heart("Cybernetic", "electronic"), 0.3));
+        hearts.add(new Pair<>(new Heart("Tissue", "flesh"), 0.2));
+        EnumeratedDistribution<Heart> distribution = new EnumeratedDistribution<>(hearts);
+        return distribution.sample();
+    }}

@@ -2,20 +2,21 @@ package net.avdw.creature;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Key;
-import com.google.inject.name.Named;
-import com.google.inject.name.Names;
 import cucumber.api.java8.En;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.Level;
 import org.pmw.tinylog.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class CreatureStepdefs implements En {
-    private static Creature creature;
-    private static String description;
+    private List<Creature> creatures = new ArrayList<>();
+    private List<Describer> describers = new ArrayList<>();
+    private List<String> descriptions = new ArrayList<>();
 
     private Exception exception;
     private Injector injector;
@@ -26,30 +27,35 @@ public class CreatureStepdefs implements En {
                 .level(Level.TRACE)
                 .activate();
 
-        When("^I describe the creature$", () -> {
-            description = injector.getInstance(CreatureDescriber.class).describe();
-        });
-        Then("^there must be no template code$", () -> {
-            assertThat(description, not(matchesPattern(".*<.*>.*")));
-        });
         Given("^I create a creature injector$", () -> {
-            try {
-                injector = Guice.createInjector(new CreatureModule());
-            } catch (Exception e) {
-                Logger.error(e);
-                exception = e;
-            }
+            injector = Guice.createInjector(new CreatureModule());
         });
-        When("^I inject a creature$", () -> {
-            try {
-                injector.getInstance(Creature.class);
-            } catch (Exception e) {
-                Logger.error(e);
-                exception = e;
-            }
+        Given("^I create a creature$", () -> {
+            creatures.add(injector.getInstance(Creature.class));
         });
-        Then("^there are no exceptions$", () -> {
-            assertThat(exception, is(nullValue()));
+        And("^I create a  describer$", () -> {
+            describers.add(injector.getInstance(Describer.class));
+        });
+        When("^I describe creature (\\d+) using  describer (\\d+)$", (Integer creatureIdx, Integer describerIdx) -> {
+            descriptions.add(describers.get(describerIdx).describe());
+        });
+        Then("^description (\\d+) for the heart will represent creature (\\d+) heart$", (Integer descriptionIdx, Integer creatureIdx) -> {
+            Heart heart = creatures.get(creatureIdx).body.heart;
+            assertThat(heart, is(notNullValue()));
+            assertThat(descriptions.get(descriptionIdx), is(notNullValue()));
+            assertThat(descriptions.get(descriptionIdx), containsString(heart.description));
+        });
+        Then("^description (\\d+) and description (\\d+) will be equal$", (Integer arg0, Integer arg1) -> {
+            throw new UnsupportedOperationException();
+        });
+        Then("^description (\\d+) and description (\\d+) will not be equal$", (Integer arg0, Integer arg1) -> {
+            throw new UnsupportedOperationException();
+        });
+        And("^description (\\d+) will not have the same structure to description (\\d+)$", (Integer arg0, Integer arg1) -> {
+            throw new UnsupportedOperationException();
+        });
+        And("^description (\\d+) will have the same structure to description (\\d+)$", (Integer arg0, Integer arg1) -> {
+            throw new UnsupportedOperationException();
         });
     }
 }

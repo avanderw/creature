@@ -19,7 +19,7 @@ public class CreatureModule extends AbstractModule {
     protected void configure() {
         install(new BodyModule());
 
-        bind(Describer.class).annotatedWith(Names.named("creature")).to(CreatureDescriber.class);
+        bind(Describer.class).to(CreatureDescriber.class);
     }
 
     @Provides
@@ -102,16 +102,6 @@ public class CreatureModule extends AbstractModule {
     }
 
 
-    @Provides
-    Heart heart() {
-        List<Pair<Heart, Double>> hearts = new ArrayList<>();
-        hearts.add(new Pair<>(new Heart("bionic"), 0.4));
-        hearts.add(new Pair<>(new Heart("diamond"), 0.1));
-        hearts.add(new Pair<>(new Heart("cybernetic"), 0.3));
-        hearts.add(new Pair<>(new Heart("tissue"), 0.2));
-        EnumeratedDistribution<Heart> distribution = new EnumeratedDistribution<>(hearts);
-        return distribution.sample();
-    }
 
     @Provides @Named("creature-description-template")
     String template(@Named("creature-description-templates") EnumeratedDistribution<String> templates) {

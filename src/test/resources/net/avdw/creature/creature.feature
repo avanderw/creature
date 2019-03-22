@@ -1,35 +1,34 @@
 Feature: Creature
-  Scenario: Initialise
+  Background:
     Given I create a creature injector
-    When I inject a creature
-    Then there are no exceptions
 
-  Scenario: Templating
-    Given I create a creature injector
-    When I describe the creature
-    Then there must be no template code
-
-  Scenario: Consistency
+  Scenario: Description consistency
     Given I create a creature
-    And I create a descriptor
-    When I describe creature 0 using the descriptor 0
-    And I describe creature 0 using the descriptor 0
-    Then the description 0 and description 1 will be equal
+    And I create a  describer
+    When I describe creature 0 using  describer 0
+    Then description 0 for the heart will represent creature 0 heart
 
-  Scenario: Different descriptors
+  Scenario:  describer consistency
     Given I create a creature
-    And I create a descriptor
-    And I create a descriptor
-    When I describe creature 0 using the descriptor 0
-    And I describe creature 0 using the descriptor 1
+    And I create a  describer
+    When I describe creature 0 using  describer 0
+    And I describe creature 0 using  describer 0
+    Then description 0 and description 1 will be equal
+
+  Scenario: Different  describers
+    Given I create a creature
+    And I create a  describer
+    And I create a  describer
+    When I describe creature 0 using  describer 0
+    And I describe creature 0 using  describer 1
     Then description 0 and description 1 will not be equal
     And description 0 will not have the same structure to description 1
 
   Scenario: Different creatures
     Given I create a creature
     And I create a creature
-    And I create a descriptor
-    When I describe creature 0 using the descriptor 0
-    And I describe creature 1 using the descriptor 0
-    Then the description 0 and description 1 will be equal
+    And I create a  describer
+    When I describe creature 0 using  describer 0
+    And I describe creature 1 using  describer 0
+    Then description 0 and description 1 will be equal
     And description 0 will have the same structure to description 1

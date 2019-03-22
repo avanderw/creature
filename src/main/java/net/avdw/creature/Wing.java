@@ -1,10 +1,8 @@
 package net.avdw.creature;
 
-import net.avdw.creature.codegen.Describe;
-
-@Describe
 public class Wing {
     private final WingType shape;
+    public String description;
 
 
     public Wing(WingType shape) {

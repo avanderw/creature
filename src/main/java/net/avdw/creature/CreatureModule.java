@@ -4,35 +4,33 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.google.inject.name.Names;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
-import org.apache.commons.math3.distribution.EnumeratedIntegerDistribution;
 import org.apache.commons.math3.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
 
 public class CreatureModule extends AbstractModule {
+    private EnumeratedDistribution<String> templates;
+
     @Override
     protected void configure() {
         install(new BodyModule());
 
-        bind(Describer.class).to(CreatureDescriber.class);
+        templates = createTemplates();
     }
 
     @Provides
-    List<Arm> arms(Hand hand) {
-        int[] legSets = new int[]{0,1,2,3,4};
-        double[] probabilities = new double[]{.2,.4,.1,.2,.1};
-        EnumeratedIntegerDistribution armSetDistribution = new EnumeratedIntegerDistribution(legSets, probabilities);
-        List<Arm> arms = new ArrayList<>();
-        IntStream.range(0, armSetDistribution.sample()).forEach(i-> {
-            arms.add(new Arm("left", hand));
-            arms.add(new Arm("right", hand));
-        });
-        return arms;
+    @Named("creature-template")
+    String template() {
+        return templates.sample();
+    }
+
+    private EnumeratedDistribution<String> createTemplates() {
+        double denominator = 1d;
+        List<Pair<String, Double>> descriptions = new ArrayList<>();
+        descriptions.add(new Pair<>("The todo:name has a #{body.description}", 1 / denominator));
+        return new EnumeratedDistribution<>(descriptions);
     }
 
     @Provides
@@ -47,25 +45,6 @@ public class CreatureModule extends AbstractModule {
         return distro.sample();
     }
 
-    @Provides
-    List<Head> heads() {
-        List<Head> heads = new ArrayList<>();
-        IntStream.range(0, new Random().nextInt(6) + 1).forEach(i-> heads.add(new Head()));
-        return heads;
-    }
-
-    @Provides
-    List<Leg> legs(Foot foot) {
-        int[] legSets = new int[]{0,1,2,3,4};
-        double[] probabilities = new double[]{.2,.4,.1,.2,.1};
-        EnumeratedIntegerDistribution legSetDistribution = new EnumeratedIntegerDistribution(legSets, probabilities);
-        List<Leg> legs = new ArrayList<>();
-        IntStream.range(0, legSetDistribution.sample()).forEach(i-> {
-            legs.add(new Leg("left", foot));
-            legs.add(new Leg("right", foot));
-        });
-        return legs;
-    }
 
     @Provides
     Foot foot() {
@@ -79,42 +58,6 @@ public class CreatureModule extends AbstractModule {
         return distro.sample();
     }
 
-    @Provides
-    Tail tail() {
-        List<Pair<Tail, Double>> tail = new ArrayList<>();
-        tail.add(new Pair<>(new Tail("bionic"), .2));
-        tail.add(new Pair<>(new Tail("spiked"), .2));
-        tail.add(new Pair<>(new Tail("stub"), .2));
-        tail.add(new Pair<>(new Tail("short"), .2));
-        tail.add(new Pair<>(new Tail("long"), .2));
-        EnumeratedDistribution<Tail> distro = new EnumeratedDistribution<>(tail);
-        return distro.sample();
-    }
-
-    @Provides
-    List<Tail> tails(Tail tail) {
-        int[] counts = new int[]{0,1,2,3};
-        double[] probabilities = new double[]{.1,.5,.1,.3};
-        EnumeratedIntegerDistribution distro = new EnumeratedIntegerDistribution(counts, probabilities);
-        List<Tail> tails = new ArrayList<>();
-        IntStream.range(0, new Random().nextInt(distro.sample()+1)).forEach(i-> tails.add(tail));
-        return tails;
-    }
-
-
-
-    @Provides @Named("creature-adjective-template")
-    String template(@Named("creature-adjective-templates") EnumeratedDistribution<String> templates) {
-        return templates.sample();
-    }
-
-    @Provides @Singleton @Named("creature-adjective-templates")
-    EnumeratedDistribution<String> templates() {
-        double denominator = 1d;
-        List<Pair<String, Double>> descriptions = new ArrayList<>();
-        descriptions.add(new Pair<>("The todo:name has a #{body}", 1/denominator));
-        return new EnumeratedDistribution<>(descriptions);
-    }
 
 }
 
@@ -211,7 +154,7 @@ public class CreatureModule extends AbstractModule {
 //        [7] Roll an arm. Has an eye in center of palm and shoots 1d6 eye lasers, no save.
 //        [8] Flaming Pyre. Can breathe fire cone 2d6 damage. Stunned for a round after use.
 //        [9] King with tin crown. Commands 1d4 faceless, cowardly humanoid creatures w/ spears.
-//        [10] Tapestry covers face. Takes -1 damage from all spells. Face underneath defies adjective.
+//        [10] Tapestry covers face. Takes -1 damage from all spells. Face underneath defies description.
 //        [11] Big ugly pink pig. Snorts out huge gust of air; blinding dust 1 round and knocks away arrows.
 //        [12] Vampire Bat. Drain-Bite attack deals 1d6 damage and heals it for same amount.
 //

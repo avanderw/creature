@@ -17,17 +17,10 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 class CreatureDescriber implements Describer {
     String template;
 
-    Describer bodyDescriber;
 
     @Inject
-    CreatureDescriber(@Named("creature-description-template") String template,
-            @Named("body") Describer bodyDescriber) {
+    CreatureDescriber(@Named("creature-description-template") String template) {
         this.template = template;
-        this.bodyDescriber = bodyDescriber;
-    }
-
-    public String getBody() {
-        return bodyDescriber.describe();
     }
 
     public String describe() {

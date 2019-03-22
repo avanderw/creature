@@ -32,11 +32,8 @@ public class CreatureStepdefs implements En {
         Given("^I create a creature$", () -> {
             creatures.add(injector.getInstance(Creature.class));
         });
-        And("^I create a  describer$", () -> {
-            describers.add(injector.getInstance(Describer.class));
-        });
-        When("^I describe creature (\\d+) using  describer (\\d+)$", (Integer creatureIdx, Integer describerIdx) -> {
-            descriptions.add(describers.get(describerIdx).describe());
+        When("^I describe creature (\\d+)$", (Integer creatureIdx) -> {
+            descriptions.add(creatures.get(creatureIdx).description);
         });
         Then("^description (\\d+) for the heart will represent creature (\\d+) heart$", (Integer descriptionIdx, Integer creatureIdx) -> {
             Heart heart = creatures.get(creatureIdx).body.heart;

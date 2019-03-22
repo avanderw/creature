@@ -35,8 +35,7 @@ class BodyDescriber implements Describer {
     BodyDescriber(@Named("body-description-template") String template,
             @Named("heads") Describer headsDescriber, @Named("arms") Describer armsDescriber,
             @Named("wings") Describer wingsDescriber, @Named("legs") Describer legsDescriber,
-            @Named("tails") Describer tailsDescriber, @Named("skin") Describer skinDescriber,
-            @Named("heart") Describer heartDescriber) {
+            @Named("tails") Describer tailsDescriber, @Named("skin") Describer skinDescriber) {
         this.template = template;
         this.headsDescriber = headsDescriber;
         this.armsDescriber = armsDescriber;
@@ -44,7 +43,6 @@ class BodyDescriber implements Describer {
         this.legsDescriber = legsDescriber;
         this.tailsDescriber = tailsDescriber;
         this.skinDescriber = skinDescriber;
-        this.heartDescriber = heartDescriber;
     }
 
     public String getHeads() {
@@ -71,9 +69,6 @@ class BodyDescriber implements Describer {
         return skinDescriber.describe();
     }
 
-    public String getHeart() {
-        return heartDescriber.describe();
-    }
 
     public String describe() {
         ExpressionParser expressionParser = new SpelExpressionParser();

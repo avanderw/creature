@@ -6,10 +6,12 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
+import org.apache.commons.math3.distribution.EnumeratedIntegerDistribution;
 import org.apache.commons.math3.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class LegModule extends AbstractModule {
     @Override
@@ -19,14 +21,27 @@ public class LegModule extends AbstractModule {
     }
 
     @Provides
-    @Named("legs-adjective-template")
-    String legsTemplate(@Named("legs-adjective-templates") EnumeratedDistribution<String> templates) {
+    List<Leg> legs(Foot foot) {
+        int[] legSets = new int[]{0,1,2,3,4};
+        double[] probabilities = new double[]{.2,.4,.1,.2,.1};
+        EnumeratedIntegerDistribution legSetDistribution = new EnumeratedIntegerDistribution(legSets, probabilities);
+        List<Leg> legs = new ArrayList<>();
+        IntStream.range(0, legSetDistribution.sample()).forEach(i-> {
+            legs.add(new Leg("left", foot, ""));
+            legs.add(new Leg("right", foot, ""));
+        });
+        return legs;
+    }
+
+    @Provides
+    @Named("legs-description-template")
+    String legsTemplate(@Named("legs-description-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("legs-adjective-templates")
+    @Named("legs-description-templates")
     EnumeratedDistribution<String> legsTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
@@ -35,14 +50,14 @@ public class LegModule extends AbstractModule {
     }
 
     @Provides
-    @Named("leg-adjective-template")
-    String legTemplate(@Named("leg-adjective-templates") EnumeratedDistribution<String> templates) {
+    @Named("leg-description-template")
+    String legTemplate(@Named("leg-description-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("leg-adjective-templates")
+    @Named("leg-description-templates")
     EnumeratedDistribution<String> legTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();

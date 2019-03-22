@@ -1,35 +1,37 @@
 package net.avdw.creature;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import net.avdw.creature.codegen.Describe;
+import org.pmw.tinylog.Logger;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import java.util.List;
 
 @Describe
 public class Body {
-    @Describe
-    List<Head> heads;
+    public Heads heads;
 
-    @Describe
-    List<Arm> arms;
+    public Arms arms;
 
-    @Describe
-    List<Wing> wings;
+    public Wings wings;
 
-    @Describe
-    List<Leg> legs;
+    public Legs legs;
 
-    @Describe
-    List<Tail> tails;
 
-    @Describe
-    Skin skin;
+    public Tails tails;
 
-    @Describe
-    Heart heart;
+    public Skin skin;
+
+    public Heart heart;
+
+    public String description;
 
     @Inject
-    public Body(List<Head> heads, List<Arm> arms, List<Wing> wings, List<Leg> legs, List<Tail> tails, Skin skin, Heart heart) {
+    public Body(@Named("body-template") String template,Heads heads, Arms arms, Wings wings, Legs legs, Tails tails, Skin skin, Heart heart) {
         this.heads = heads;
         this.arms = arms;
         this.wings = wings;
@@ -37,5 +39,10 @@ public class Body {
         this.tails = tails;
         this.skin = skin;
         this.heart = heart;
+
+        ExpressionParser expressionParser = new SpelExpressionParser();
+        Expression expression = expressionParser.parseExpression(template, new TemplateParserContext());
+        description = expression.getValue(this, String.class);
+        Logger.trace(description);
     }
 }

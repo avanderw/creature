@@ -22,14 +22,14 @@ public class WingModule extends AbstractModule {
 
 
     @Provides
-    @Named("wings-adjective-template")
-    String wingsTemplate(@Named("wings-adjective-templates") EnumeratedDistribution<String> templates) {
+    @Named("wings-description-template")
+    String wingsTemplate(@Named("wings-description-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("wings-adjective-templates")
+    @Named("wings-description-templates")
     EnumeratedDistribution<String> wingsTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
@@ -38,14 +38,14 @@ public class WingModule extends AbstractModule {
     }
 
     @Provides
-    @Named("wing-adjective-template")
-    String wingTemplate(@Named("wing-adjective-templates") EnumeratedDistribution<String> templates) {
+    @Named("wing-description-template")
+    String wingTemplate(@Named("wing-description-templates") EnumeratedDistribution<String> templates) {
         return templates.sample();
     }
 
     @Provides
     @Singleton
-    @Named("wing-adjective-templates")
+    @Named("wing-description-templates")
     EnumeratedDistribution<String> wingTemplates() {
         double denominator = 1d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();

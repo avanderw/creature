@@ -43,7 +43,7 @@ class TailModule extends AbstractModule {
         types.add(new Pair<>(new TailType("Bionic", "bionic"), 1 / d));
         types.add(new Pair<>(new TailType("Spiked", "spiked"), 1 / d));
         types.add(new Pair<>(new TailType("Stub", "stub"), 1 / d));
-        types.add(new Pair<>(new TailType("Short", "short"), 1 / d));
+        types.add(new Pair<>(new TailType("Bone", "ring of bones for protection"), 1 / d));
         types.add(new Pair<>(new TailType("Long", "long"), 1 / d));
 
         return new EnumeratedDistribution<>(types).sample();
@@ -79,14 +79,20 @@ class TailModule extends AbstractModule {
             case 1:
                 denominator = 1d;
                 descriptions.add(new Pair<>("The creature has one tail which can be described as #{tails[0].adjective}.", 1 / denominator));
+                descriptions.add(new Pair<>("The tail indicates emotions through the positioning and movement. It wiggles when the creature is happy and droops when it is sad.", 1 / denominator));
+                descriptions.add(new Pair<>("Occasionally the tail can be seen brushing away flies and other biting insects.", 1 / denominator));
+                descriptions.add(new Pair<>("At high speeds the #{tails[0].adjective} tail plays a crucial role in stabilising the creature.", 1 / denominator));
                 break;
             case 2:
                 denominator = 1d;
                 descriptions.add(new Pair<>("Mutations have left the creature with two tails. One of them #{tails[0].description}. The other #{tails[1].description}.", 1 / denominator));
+                descriptions.add(new Pair<>("The creature uses its tails in competition for resources and also as an ornament when competing for sexual partners.", 1 / denominator));
                 break;
             case 3:
                 denominator = 1d;
-                descriptions.add(new Pair<>("The creature has three-tails. #{tails[0].description}, #{tails[1].description}, #{tails[2].description}. ", 1 / denominator));
+                descriptions.add(new Pair<>("The creature has three-tails. #{tails[0].description}, #{tails[1].description}, #{tails[2].description}.", 1 / denominator));
+                descriptions.add(new Pair<>("The tails play an important role in courtship displays.", 1 / denominator));
+                descriptions.add(new Pair<>("These tails are used as a rudder, helping the creature steer and maneuver.", 1 / denominator));
                 break;
 
             default:
@@ -99,8 +105,15 @@ class TailModule extends AbstractModule {
     @Singleton
     @Named("tail.templates")
     EnumeratedDistribution<String> createTailTemplates() {
-        double denominator = 1d;
+        double denominator = 6d;
         List<Pair<String, Double>> descriptions = new ArrayList<>();
+        descriptions.add(new Pair<>("The narrow, segmented tail, often carried in a characteristic forward curve over the back, ending with a venomous stinger.", 1 / denominator));
+        descriptions.add(new Pair<>("A tail covered in free bony rings of dermal structures that make for a strong, flexible, and mobile appendix. This enables the creature to use the muscles along its tail to powerfully swing it.", 1 / denominator));
+        descriptions.add(new Pair<>("The rings in the tail are fused together, making the tail resemble a single piece of rigid bone.", 1 / denominator));
+        descriptions.add(new Pair<>("If the spikes were removed from the end of the tail, it would resemble a pestle.", 1 / denominator));
+        descriptions.add(new Pair<>("The tail is surrounded by a flexible sheath of bone and has long spikes or knobs on the end, at least in male individuals.", 1 / denominator));
+        descriptions.add(new Pair<>("", 1 / denominator));
+        descriptions.add(new Pair<>("The #{adjective} tail can be seen far miles away.", 1 / denominator));
         descriptions.add(new Pair<>("The #{adjective} tail can be seen far miles away.", 1 / denominator));
         return new EnumeratedDistribution<>(descriptions);
     }

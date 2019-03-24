@@ -3,6 +3,7 @@ package net.avdw.creature;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import net.avdw.creature.codegen.Describe;
+import org.apache.commons.text.WordUtils;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.common.TemplateParserContext;
@@ -23,4 +24,5 @@ public class Tail {
         Expression expression = expressionParser.parseExpression(template, new TemplateParserContext());
         description = expression.getValue(this, String.class);
     }
+
 }

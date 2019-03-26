@@ -7,7 +7,7 @@ Feature: Creature
     When I describe creature 0
     Then description 0 for the heart will represent creature 0 heart
 
-  Scenario:  describer consistency
+  Scenario: Describer consistency
     Given I create a creature
     When I describe creature 0
     And I describe creature 0

@@ -18,6 +18,7 @@ public class Creature {
     Creature(Body body, @Named("creature-template") String template) {
         this.body = body;
 
+        Logger.trace(body);
         ExpressionParser expressionParser = new SpelExpressionParser();
         Expression expression = expressionParser.parseExpression(template, new TemplateParserContext());
         description = expression.getValue(this, String.class);

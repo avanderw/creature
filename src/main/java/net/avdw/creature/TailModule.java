@@ -56,14 +56,12 @@ class TailModule extends AbstractModule {
     }
 
     @Provides
-    @Singleton
     @Named("tails.description")
     String chooseTailsTemplate(TemplatePopulator populator, Tails tails, @Named("tails.templates") EnumeratedDistribution<String> templates) {
         return populator.populate(templates.sample(), tails);
     }
 
     @Provides
-    @Singleton
     @Named("tail.description")
     String chooseTailTemplate(TemplatePopulator populator, Tail tail, @Named("tail.templates") EnumeratedDistribution<String> templates) {
         return populator.populate(templates.sample(), tail);

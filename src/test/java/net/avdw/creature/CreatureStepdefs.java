@@ -30,7 +30,7 @@ public class CreatureStepdefs implements En {
             injector = Guice.createInjector(new CreatureModule());
         });
         Given("^I create a creature$", () -> {
-            creatures.add(injector.getInstance(Creature.class));
+            creatures.add(injector.getProvider(Creature.class).get());
         });
         When("^I describe creature (\\d+)$", (Integer creatureIdx) -> {
             descriptions.add(creatures.get(creatureIdx).description);
@@ -41,11 +41,11 @@ public class CreatureStepdefs implements En {
             assertThat(descriptions.get(descriptionIdx), is(notNullValue()));
             assertThat(descriptions.get(descriptionIdx), containsString(heart.adjective));
         });
-        Then("^description (\\d+) and description (\\d+) will be equal$", (Integer arg0, Integer arg1) -> {
-            throw new UnsupportedOperationException();
+        Then("^description (\\d+) and description (\\d+) will be equal$", (Integer descIdx1, Integer descIdx2) -> {
+            assertThat(descriptions.get(descIdx1), is(equalTo(descriptions.get(descIdx2))));
         });
-        Then("^description (\\d+) and description (\\d+) will not be equal$", (Integer arg0, Integer arg1) -> {
-            throw new UnsupportedOperationException();
+        Then("^description (\\d+) and description (\\d+) will not be equal$", (Integer descIdx1, Integer descIdx2) -> {
+            assertThat(descriptions.get(descIdx1), is(not(equalTo(descriptions.get(descIdx2)))));
         });
         And("^description (\\d+) will not have the same structure to description (\\d+)$", (Integer arg0, Integer arg1) -> {
             throw new UnsupportedOperationException();

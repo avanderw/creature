@@ -24,4 +24,8 @@ public class Tails {
     public void setDescription(@Named("tails.description") String description) {
         this.description = description;
     }
+
+    public String uncapitalize(String string) {
+        return WordUtils.uncapitalize(string);
+    }
 }

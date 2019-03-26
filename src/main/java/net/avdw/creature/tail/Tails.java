@@ -1,12 +1,8 @@
-package net.avdw.creature;
+package net.avdw.creature.tail;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.apache.commons.text.WordUtils;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.common.TemplateParserContext;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import java.util.List;
 
@@ -17,7 +13,6 @@ public class Tails {
     @Inject
     Tails(List<Tail> tails) {
         this.tails = tails;
-        this.description = description;
     }
 
     @Inject

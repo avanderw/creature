@@ -1,29 +1,20 @@
-package net.avdw.creature;
+package net.avdw.creature.tail;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Named;
-import com.google.inject.name.Names;
+import net.avdw.creature.TemplatePopulator;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.distribution.EnumeratedIntegerDistribution;
 import org.apache.commons.math3.util.Pair;
-import org.apache.commons.text.WordUtils;
-import org.pmw.tinylog.Logger;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.common.TemplateParserContext;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 
-import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.IntStream;
 
-class TailModule extends AbstractModule {
+public class TailModule extends AbstractModule {
 
     @Provides
     @Singleton

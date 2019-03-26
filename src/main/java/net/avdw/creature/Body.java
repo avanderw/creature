@@ -3,13 +3,12 @@ package net.avdw.creature;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import net.avdw.creature.codegen.Describe;
+import net.avdw.creature.tail.Tails;
 import org.pmw.tinylog.Logger;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
-
-import java.util.List;
 
 @Describe
 public class Body {

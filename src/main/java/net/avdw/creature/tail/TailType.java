@@ -1,10 +1,10 @@
-package net.avdw.creature;
+package net.avdw.creature.tail;
 
-public class TailType {
+class TailType {
     String name;
     String adjective;
 
-    public TailType(String name, String adjective) {
+    TailType(String name, String adjective) {
         this.name = name;
         this.adjective = adjective;
     }

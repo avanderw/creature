@@ -1,11 +1,11 @@
-package net.avdw.creature;
+package net.avdw.creature.tail;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import net.avdw.creature.codegen.Describe;
 
 @Describe
-public class Tail {
+class Tail {
     private String type;
     public String adjective;
     public String description;

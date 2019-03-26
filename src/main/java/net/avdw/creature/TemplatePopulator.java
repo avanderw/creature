@@ -6,7 +6,7 @@ import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 public class TemplatePopulator {
-    String populate(String template, Object context) {
+    public String populate(String template, Object context) {
         ExpressionParser expressionParser = new SpelExpressionParser();
         Expression expression = expressionParser.parseExpression(template, new TemplateParserContext());
         return expression.getValue(context, String.class);

@@ -2,9 +2,8 @@ package net.avdw.creature;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.google.inject.name.Names;
+import net.avdw.creature.tail.TailModule;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.util.Pair;
 

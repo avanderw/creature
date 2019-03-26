@@ -15,15 +15,13 @@ public class Tails {
     public String description;
 
     @Inject
-    Tails(List<Tail> tails, @Named("tails.template") String template) {
+    Tails(List<Tail> tails) {
         this.tails = tails;
-
-        ExpressionParser expressionParser = new SpelExpressionParser();
-        Expression expression = expressionParser.parseExpression(template, new TemplateParserContext());
-        description = expression.getValue(this, String.class);
+        this.description = description;
     }
 
-    public String uncapitalize(String string) {
-        return WordUtils.uncapitalize(string);
+    @Inject
+    public void setDescription(@Named("tails.description") String description) {
+        this.description = description;
     }
 }

@@ -1,6 +1,7 @@
 package net.avdw.creature;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
@@ -34,9 +35,9 @@ class TailModule extends AbstractModule {
     }
 
     @Provides
-    List<Tail> tails(@Named("num.tails") Integer numTails, TailType type, @Named("tail.template") String template) {
+    List<Tail> tails(@Named("num.tails") Integer numTails, Provider<Tail> tail) {
         List<Tail> tails = new ArrayList<>();
-        IntStream.range(0, numTails).forEach(i -> tails.add(new Tail(type, template)));
+        IntStream.range(0, numTails).forEach(i -> tails.add(tail.get()));
         return tails;
     }
 
@@ -56,16 +57,16 @@ class TailModule extends AbstractModule {
 
     @Provides
     @Singleton
-    @Named("tails.template")
-    String chooseTailsTemplate(@Named("tails.templates") EnumeratedDistribution<String> templates) {
-        return templates.sample();
+    @Named("tails.description")
+    String chooseTailsTemplate(TemplatePopulator populator, Tails tails, @Named("tails.templates") EnumeratedDistribution<String> templates) {
+        return populator.populate(templates.sample(), tails);
     }
 
     @Provides
     @Singleton
-    @Named("tail.template")
-    String chooseTailTemplate(@Named("tail.templates") EnumeratedDistribution<String> templates) {
-        return templates.sample();
+    @Named("tail.description")
+    String chooseTailTemplate(TemplatePopulator populator, Tail tail, @Named("tail.templates") EnumeratedDistribution<String> templates) {
+        return populator.populate(templates.sample(), tail);
     }
 
     @Provides
